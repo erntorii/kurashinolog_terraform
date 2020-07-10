@@ -1,0 +1,53 @@
+[
+  {
+    "name": "app",
+    "image": "650711581682.dkr.ecr.ap-northeast-1.amazonaws.com/app:latest",
+    "cpu": 333,
+    "memoryReservation": 600,
+    "essential": true,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "protocol": "tcp",
+        "containerPort": 3000
+      }
+    ],
+    "command": ["bundle", "exec", "puma", "-C", "config/puma.rb"],
+    "environment": [
+      {
+        "name": "RAILS_ENV",
+        "value": "production"
+      }
+    ],
+    "secrets":[
+      {
+        "name": "DB_HOST",
+        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/DB_HOST"
+      },
+      {
+        "name": "DB_DATABASE",
+        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/DB_DATABASE"
+      },
+      {
+        "name": "DB_USERNAME",
+        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/DB_USERNAME"
+      },
+      {
+        "name": "DB_PASSWORD",
+        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/DB_PASSWORD"
+      },
+      {
+        "name": "RAILS_MASTER_KEY",
+        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/RAILS_MASTER_KEY"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "app-task",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "app"
+      }
+    }
+  }
+]
