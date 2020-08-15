@@ -2,8 +2,6 @@
   {
     "name": "app",
     "image": "650711581682.dkr.ecr.ap-northeast-1.amazonaws.com/app:latest",
-    "cpu": 333,
-    "memoryReservation": 600,
     "essential": true,
     "portMappings": [
       {
@@ -13,10 +11,15 @@
       }
     ],
     "command": ["bundle", "exec", "puma", "-C", "config/puma.rb"],
+    "workingDirectory": "/app",
     "environment": [
       {
         "name": "RAILS_ENV",
         "value": "production"
+      },
+      {
+        "name": "RAILS_LOG_TO_STDOUT",
+        "value": "ENABLED"
       }
     ],
     "secrets":[
@@ -41,12 +44,44 @@
         "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/RAILS_MASTER_KEY"
       }
     ],
+    "mountPoints": [
+      {
+      "sourceVolume": "sockets",
+      "containerPath": "/app/tmp/sockets"
+      }
+    ],
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
         "awslogs-group": "app-task",
         "awslogs-region": "ap-northeast-1",
         "awslogs-stream-prefix": "app"
+      }
+    }
+  },
+  {
+    "name": "web",
+    "image": "650711581682.dkr.ecr.ap-northeast-1.amazonaws.com/web:latest",
+    "essential": true,
+    "portMappings": [
+      {
+        "hostPort": 0,
+        "protocol": "tcp",
+        "containerPort": 80
+      }
+    ],
+    "mountPoints": [
+      {
+      "sourceVolume": "sockets",
+      "containerPath": "/app/tmp/sockets"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "app-task",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "web"
       }
     }
   }

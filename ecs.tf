@@ -22,7 +22,19 @@ resource "aws_ecs_service" "app-service" {
 
 resource "aws_ecs_task_definition" "app-task" {
   family                = "app-task"
-  container_definitions = file("./container_definitions/rails.json")
+  cpu                   = "512"
+  memory                = "512"
+  container_definitions = file("./container_definitions.json")
   network_mode          = "bridge"
   execution_role_arn    = module.ecs_task_role.iam_role_arn
+
+  volume {
+    name = "sockets"
+
+    docker_volume_configuration {
+      scope         = "task"
+      autoprovision = true
+      driver        = "local"
+    }
+  }
 }
