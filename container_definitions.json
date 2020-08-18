@@ -18,6 +18,10 @@
         "value": "production"
       },
       {
+        "name": "RAILS_SERVE_STATIC_FILES",
+        "value": "true"
+      },
+      {
         "name": "RAILS_LOG_TO_STDOUT",
         "value": "ENABLED"
       }
@@ -48,6 +52,10 @@
       {
       "sourceVolume": "sockets",
       "containerPath": "/app/tmp/sockets"
+      },
+      {
+      "sourceVolume": "public-data",
+      "containerPath": "/app/public"
       }
     ],
     "logConfiguration": {
@@ -74,6 +82,10 @@
       {
       "sourceVolume": "sockets",
       "containerPath": "/app/tmp/sockets"
+      },
+      {
+      "sourceVolume": "public-data",
+      "containerPath": "/app/public"
       }
     ],
     "logConfiguration": {

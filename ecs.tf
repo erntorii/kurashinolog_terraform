@@ -32,9 +32,16 @@ resource "aws_ecs_task_definition" "app-task" {
     name = "sockets"
 
     docker_volume_configuration {
-      scope         = "task"
-      autoprovision = true
-      driver        = "local"
+      scope  = "task"
+      driver = "local"
+    }
+  }
+  volume {
+    name = "public-data"
+
+    docker_volume_configuration {
+      scope  = "task"
+      driver = "local"
     }
   }
 }
