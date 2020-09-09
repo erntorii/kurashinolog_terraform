@@ -1,9 +1,9 @@
 # ------------------------------------------------------------
 # ECS Instance Security Group
 # ------------------------------------------------------------
-resource "aws_security_group" "ecs_instance" {
-  name   = "ecs_instance"
-  vpc_id = aws_vpc.vpc.id
+resource "aws_security_group" "ecs" {
+  name   = "${var.prefix}-ecs"
+  vpc_id = aws_vpc.main.id
 
   ingress {
     from_port       = 0
@@ -25,14 +25,18 @@ resource "aws_security_group" "ecs_instance" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.prefix}-ecs"
+  }
 }
 
 # ------------------------------------------------------------
 # ALB Security Group
 # ------------------------------------------------------------
 resource "aws_security_group" "alb" {
-  name   = "alb"
-  vpc_id = aws_vpc.vpc.id
+  name   = "${var.prefix}-alb"
+  vpc_id = aws_vpc.main.id
 
   ingress {
     from_port   = 80
@@ -54,19 +58,27 @@ resource "aws_security_group" "alb" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  tags = {
+    Name = "${var.prefix}-alb"
+  }
 }
 
 # ------------------------------------------------------------
 # DB Security Group
 # ------------------------------------------------------------
 resource "aws_security_group" "db" {
-  name   = "db"
-  vpc_id = aws_vpc.vpc.id
+  name   = "${var.prefix}-db"
+  vpc_id = aws_vpc.main.id
 
   ingress {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = [aws_security_group.ecs_instance.id]
+    security_groups = [aws_security_group.ecs.id]
+  }
+
+  tags = {
+    Name = "${var.prefix}-db"
   }
 }

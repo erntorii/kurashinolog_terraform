@@ -3,7 +3,7 @@
 # ------------------------------------------------------------
 module "ecs_instance_role" {
   source     = "./iam_role"
-  name       = "ecs_instance"
+  name       = "${var.prefix}-ecs-instance"
   identifier = "ec2.amazonaws.com"
   policy     = data.aws_iam_policy.ecs_for_ec2_role.policy
 }
@@ -13,7 +13,7 @@ data "aws_iam_policy" "ecs_for_ec2_role" {
 }
 
 resource "aws_iam_instance_profile" "ecs_instance_profile" {
-  name = "ecs-instance-profile"
+  name = "${var.prefix}-ecs-instance-profile"
   role = module.ecs_instance_role.iam_role_name
 }
 
@@ -22,7 +22,7 @@ resource "aws_iam_instance_profile" "ecs_instance_profile" {
 # ------------------------------------------------------------
 module "ecs_task_role" {
   source     = "./iam_role"
-  name       = "ecs_task"
+  name       = "${var.prefix}-ecs-task"
   identifier = "ecs-tasks.amazonaws.com"
   policy     = data.aws_iam_policy_document.ecs_task_execution.json
 }

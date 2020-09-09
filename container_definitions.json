@@ -1,7 +1,7 @@
 [
   {
     "name": "app",
-    "image": "650711581682.dkr.ecr.ap-northeast-1.amazonaws.com/app:latest",
+    "image": "650711581682.dkr.ecr.ap-northeast-1.amazonaws.com/kurashinolog_app:latest",
     "essential": true,
     "portMappings": [
       {
@@ -29,23 +29,23 @@
     "secrets":[
       {
         "name": "DB_HOST",
-        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/DB_HOST"
+        "valueFrom": "/kurashinolog/DB_HOST"
       },
       {
         "name": "DB_DATABASE",
-        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/DB_DATABASE"
+        "valueFrom": "/kurashinolog/DB_DATABASE"
       },
       {
         "name": "DB_USERNAME",
-        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/DB_USERNAME"
+        "valueFrom": "/kurashinolog/DB_USERNAME"
       },
       {
         "name": "DB_PASSWORD",
-        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/DB_PASSWORD"
+        "valueFrom": "/kurashinolog/DB_PASSWORD"
       },
       {
         "name": "RAILS_MASTER_KEY",
-        "valueFrom": "arn:aws:ssm:ap-northeast-1:650711581682:parameter/RAILS_MASTER_KEY"
+        "valueFrom": "/kurashinolog/RAILS_MASTER_KEY"
       }
     ],
     "mountPoints": [
@@ -61,7 +61,7 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "app-task",
+        "awslogs-group": "kurashinolog",
         "awslogs-region": "ap-northeast-1",
         "awslogs-stream-prefix": "app"
       }
@@ -69,7 +69,7 @@
   },
   {
     "name": "web",
-    "image": "650711581682.dkr.ecr.ap-northeast-1.amazonaws.com/web:latest",
+    "image": "650711581682.dkr.ecr.ap-northeast-1.amazonaws.com/kurashinolog_web:latest",
     "essential": true,
     "portMappings": [
       {
@@ -91,7 +91,7 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "app-task",
+        "awslogs-group": "kurashinolog",
         "awslogs-region": "ap-northeast-1",
         "awslogs-stream-prefix": "web"
       }

@@ -1,11 +1,11 @@
-resource "aws_ecs_cluster" "app-cluster" {
-  name = "app-cluster"
+resource "aws_ecs_cluster" "main" {
+  name = var.prefix
 }
 
-resource "aws_ecs_service" "app-service" {
-  name            = "app-service"
-  cluster         = aws_ecs_cluster.app-cluster.id
-  task_definition = aws_ecs_task_definition.app-task.arn
+resource "aws_ecs_service" "main" {
+  name            = var.prefix
+  cluster         = aws_ecs_cluster.main.id
+  task_definition = aws_ecs_task_definition.main.arn
   desired_count   = 1
   launch_type     = "EC2"
 
@@ -20,8 +20,8 @@ resource "aws_ecs_service" "app-service" {
   }
 }
 
-resource "aws_ecs_task_definition" "app-task" {
-  family                = "app-task"
+resource "aws_ecs_task_definition" "main" {
+  family                = var.prefix
   cpu                   = "512"
   memory                = "512"
   container_definitions = file("./container_definitions.json")

@@ -1,5 +1,5 @@
 resource "aws_iam_user" "deploy-user" {
-  name = "deploy-user"
+  name = "${var.prefix}-deploy-user"
 }
 
 data "aws_iam_policy" "ecr-power-user" {
@@ -7,7 +7,7 @@ data "aws_iam_policy" "ecr-power-user" {
 }
 
 resource "aws_iam_policy" "deploy" {
-  name   = "deploy"
+  name   = "${var.prefix}-deploy"
   policy = data.aws_iam_policy.ecr-power-user.policy
 }
 
