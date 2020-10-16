@@ -54,6 +54,10 @@
       "containerPath": "/app/tmp/sockets"
       },
       {
+      "sourceVolume": "pids",
+      "containerPath": "/app/tmp/pids"
+      },
+      {
       "sourceVolume": "public-data",
       "containerPath": "/app/public"
       }
@@ -95,6 +99,12 @@
         "awslogs-region": "ap-northeast-1",
         "awslogs-stream-prefix": "web"
       }
-    }
+    },
+    "dependsOn": [
+      {
+          "containerName": "app",
+          "condition": "START"
+      }
+    ]
   }
 ]

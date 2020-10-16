@@ -37,6 +37,14 @@ resource "aws_ecs_task_definition" "main" {
     }
   }
   volume {
+    name = "pids"
+
+    docker_volume_configuration {
+      scope  = "task"
+      driver = "local"
+    }
+  }
+  volume {
     name = "public-data"
 
     docker_volume_configuration {
