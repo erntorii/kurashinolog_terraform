@@ -6,7 +6,8 @@ variable "deploy_policies" {
   type = list(string)
   default = [
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser",
-    "arn:aws:iam::aws:policy/AmazonEC2ContainerServiceFullAccess"
+    "arn:aws:iam::aws:policy/AmazonEC2ContainerServiceFullAccess",
+    "arn:aws:iam::aws:policy/AmazonS3FullAccess"
   ]
 }
 
