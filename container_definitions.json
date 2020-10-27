@@ -46,6 +46,22 @@
       {
         "name": "RAILS_MASTER_KEY",
         "valueFrom": "/kurashinolog/RAILS_MASTER_KEY"
+      },
+      {
+        "name": "AWS_ACCESS_KEY",
+        "valueFrom": "/kurashinolog/AWS_ACCESS_KEY"
+      },
+      {
+        "name": "AWS_SECRET_KEY",
+        "valueFrom": "/kurashinolog/AWS_SECRET_KEY"
+      },
+      {
+        "name": "AWS_REGION",
+        "valueFrom": "/kurashinolog/AWS_REGION"
+      },
+      {
+        "name": "AWS_BUCKET",
+        "valueFrom": "/kurashinolog/AWS_BUCKET"
       }
     ],
     "mountPoints": [
